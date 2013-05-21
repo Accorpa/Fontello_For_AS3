@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"
+		 creationComplete="group1_creationCompleteHandler(event)">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ColorPickerEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			[Bindable]public var data:Object;
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);
+			}
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+			}
+
+
+			protected function piker_changeHandler(event:ColorPickerEvent):void
+			{
+				text.setStyle("color",piker.selectedColor);
+			}
+
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button label="Close" click="button1_clickHandler(event)" x="320" y="269"/>
+	<s:Label fontFamily="Fontello" fontSize="72" width="200" height="200" id="text" textAlign="center" verticalAlign="middle"
+			 text="{data.label}" x="100" y="10"/>
+	<s:Label text="{data.tip}" x="100" y="218" width="200" verticalAlign="middle" textAlign="center" />
+	<mx:ColorPicker x="10" y="266" id="piker" change="piker_changeHandler(event)"/>
+</s:BorderContainer>

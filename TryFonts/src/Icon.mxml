@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" width="40" height="40">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.managers.PopUpManager;
+			protected function label1_clickHandler(event:MouseEvent):void
+			{
+				var pop:IconPopUp = new IconPopUp();
+				pop.data = data;
+				PopUpManager.addPopUp( pop , FlexGlobals.topLevelApplication as DisplayObject,true);
+				PopUpManager.centerPopUp(pop);
+			}
+		]]>
+	</fx:Script>
+
+	<s:BorderContainer width="30" height="30" x="5" y="5">
+		<s:Label text="{data.label}" fontSize="14" toolTip="{data.tip}" width="30" height="30" verticalAlign="middle" textAlign="center"
+				 fontFamily="Fontello" click="label1_clickHandler(event)"/>	
+	</s:BorderContainer>
+	
+	
+</s:ItemRenderer>

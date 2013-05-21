@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" backgroundColor="#FFFFFF"
+			   creationComplete="application1_creationCompleteHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Style source="common.css"/>
+	<fx:Script>
+		<![CDATA[
+			import flash.utils.describeType;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.Sort;
+			import mx.collections.SortField;
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				var iconsDP:Array = new Array();	
+				var classInfo:XML = describeType(Fontello);
+				var array:XMLList = classInfo..accessor;
+				var xmlCollection:XMLListCollection = new XMLListCollection(array);
+				var s:Sort = new Sort();
+				s.fields= [new SortField(null, true)]; // null signals to use the value of the element itself for sorting
+				xmlCollection.sort = s;
+				xmlCollection.refresh(); // remember to refresh the collection
+				
+				for each (var a:XML in xmlCollection) 
+				{
+					if(a.@name != "prototype")
+					{
+						iconsDP.push({label: Fontello[a.@name], tip: a.@name.toString()});
+					}
+				} 
+				tiles.dataProvider = new ArrayCollection(iconsDP);
+			}
+
+		]]>
+	</fx:Script>
+	<s:List x="10" y="10" width="950" height="584" id="tiles" itemRenderer="Icon">
+		<s:layout>
+			<s:TileLayout requestedColumnCount="20"/>
+		</s:layout>
+	</s:List>
+</s:Application>

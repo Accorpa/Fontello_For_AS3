@@ -1,0 +1,12 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+/* Import the different font weights and styles */
+@font-face {
+        src: url("fontello.ttf");
+        fontFamily: Fontello;
+}
+
+/* Register fonts as styleNames for further use */
+
