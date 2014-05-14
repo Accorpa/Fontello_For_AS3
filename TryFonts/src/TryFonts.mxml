@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" backgroundColor="#FFFFFF"
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" 
+			   minHeight="600" backgroundColor="#FFFFFF"
 			   creationComplete="application1_creationCompleteHandler(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -17,6 +18,8 @@
 			import mx.collections.XMLListCollection;
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
+			
+			import spark.events.TextOperationEvent;
 
 			protected function application1_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -37,13 +40,30 @@
 					}
 				} 
 				tiles.dataProvider = new ArrayCollection(iconsDP);
+				(tiles.dataProvider as ArrayCollection).filterFunction = filterCompleted;
 			}
 
+			protected function textinput1_changeHandler(event:TextOperationEvent):void
+			{
+				(tiles.dataProvider as ArrayCollection).refresh();
+			}
+			
+			private function filterCompleted(item:Object):Boolean
+			{
+				if(item.tip.indexOf(search.text) != -1)
+					return true;
+				return false;
+			}
+			
 		]]>
 	</fx:Script>
-	<s:List x="10" y="10" width="950" height="584" id="tiles" itemRenderer="Icon">
-		<s:layout>
-			<s:TileLayout requestedColumnCount="20"/>
-		</s:layout>
-	</s:List>
+	<s:VGroup width="100%" horizontalAlign="center" paddingTop="10">
+		
+		<s:TextInput prompt="Search" change="textinput1_changeHandler(event)" width="400" id="search"/>
+		<s:List x="10" y="10" width="950" height="584" id="tiles" itemRenderer="Icon">
+			<s:layout>
+				<s:TileLayout requestedColumnCount="20"/>
+			</s:layout>
+		</s:List>
+	</s:VGroup>
 </s:Application>
